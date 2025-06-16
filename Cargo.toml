@@ -1,0 +1,11 @@
+[package]
+name = "codecop"
+authors = ["Denis Klintukhov <denis.klintukhov@gmail.com>"]
+license = "GNU General Public License v3.0"
+homepage = "https://github.com/DKlintukhov/CodeCop"
+repository = "https://github.com/DKlintukhov/CodeCop"
+readme = "README.md"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
