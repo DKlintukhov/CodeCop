@@ -1,10 +1,19 @@
 use dotenv::dotenv;
-use std::env;
+use openai::{
+    Credentials,
+    chat::{ChatCompletionMessage, ChatCompletionMessageRole},
+};
 
-fn main() {
+#[tokio::main]
+async fn main() {
     dotenv().ok();
 
-    let key = env::var("API_KEY").expect("API_KEY must be set");
-    let url = env::var("BASE_URL").expect("BASE_URL must be set");
-    println!("ENV: {key} {url}");
+    let credentials = Credentials::from_env();
+
+    let messages = vec![ChatCompletionMessage {
+        role: ChatCompletionMessageRole::System,
+        content: Some("You are a large language model built into a command line interface as an example of what the `openai` Rust library made by Valentine Briese can do.".to_string()),
+        ..Default::default()
+    }];
+    println!("{:?}, {:?}", credentials, messages);
 }
