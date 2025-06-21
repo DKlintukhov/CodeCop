@@ -11,3 +11,4 @@ edition = "2024"
 [dependencies]
 tokio = "1.45.1"
 dotenv = "0.15.0"
+openai = "1.1.1"
