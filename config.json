@@ -1,0 +1,4 @@
+{
+    "url": "https://api.github.com/repos/OWNER/REPO/pulls",
+    "api_token": "your_api_token_here"
+}
