@@ -17,25 +17,9 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-mod app_config;
-mod prompts;
-
-use dotenv::dotenv;
-use openai::{
-    Credentials,
-    chat::{ChatCompletionMessage, ChatCompletionMessageRole},
-};
-
-#[tokio::main]
-async fn main() {
-    dotenv().ok();
-
-    let credentials = Credentials::from_env();
-
-    let messages = vec![ChatCompletionMessage {
-        role: ChatCompletionMessageRole::System,
-        content: Some("You are a large language model built into a command line interface as an example of what the `openai` Rust library made by Valentine Briese can do.".to_string()),
-        ..Default::default()
-    }];
-    println!("{:?}, {:?}", credentials, messages);
-}
+const PR_REVIEW: &'static str = "You are an expert software engineer acting as a code reviewer.
+Your task is to review pull requests and provide constructive feedback to improve code quality,
+maintainability, security, and performance.
+You should focus on identifying potential bugs and security vulnerabilities, suggesting improvements to code style and structure,
+and ensuring the code adheres to best practices and coding standards relevant
+to the project's technology stack and architectural principles.";
