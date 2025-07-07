@@ -23,7 +23,7 @@ mod prompts;
 use dotenv::dotenv;
 use openai::{
     Credentials,
-    chat::{ChatCompletionMessage, ChatCompletionMessageRole},
+    chat::{ChatCompletion, ChatCompletionMessage, ChatCompletionMessageRole},
 };
 
 #[tokio::main]
@@ -32,10 +32,27 @@ async fn main() {
 
     let credentials = Credentials::from_env();
 
-    let messages = vec![ChatCompletionMessage {
-        role: ChatCompletionMessageRole::System,
-        content: Some("You are a large language model built into a command line interface as an example of what the `openai` Rust library made by Valentine Briese can do.".to_string()),
-        ..Default::default()
-    }];
-    println!("{:?}, {:?}", credentials, messages);
+    let messages = vec![
+        ChatCompletionMessage {
+            role: ChatCompletionMessageRole::System,
+            content: Some("You are a helpful assistant.".to_string()),
+            ..Default::default()
+        },
+        ChatCompletionMessage {
+            role: ChatCompletionMessageRole::User,
+            content: Some("Tell me a random fact".to_string()),
+            ..Default::default()
+        },
+    ];
+    let chat_completion = ChatCompletion::builder("openrouter/cypher-alpha:free", messages.clone())
+        .credentials(credentials.clone())
+        .create()
+        .await
+        .unwrap();
+    let returned_message = chat_completion.choices.first().unwrap().message.clone();
+    println!(
+        "{:#?}: {}",
+        returned_message.role,
+        returned_message.content.unwrap().trim()
+    );
 }
